@@ -1,0 +1,55 @@
+## Contesto tecnico (Musso)
+
+### Obiettivo del lavoro
+- Conversione del sito da mono-pagina a multi-pagina (file HTML statici).
+- Uniformare un look “minimal/professionale” ispirato a ferramentasangiorgio.com: molto white space, tipografia Archivo, hero parallax e sezioni parallax con card “vetro”.
+- Predisporre aree widget (Google Business/Maps) come placeholder grafici, da riempire in un secondo momento.
+
+### Stack / scelte implementative
+- Sito statico: HTML + Tailwind via CDN (no build, no bundler).
+- Tipografia: Google Fonts “Archivo”.
+- Parallax: background fisso tramite CSS `background-attachment: fixed` (con fallback mobile via media query -> `scroll`).
+- Header: trasparente su hero e diventa scuro/blur allo scroll tramite JS (aggiunta/rimozione classi).
+- Palette: antracite (#1a1a1a) + rosso accento (construction-red) per CTA e micro-accenti.
+
+### Struttura pagine attuale
+- index.html: Home con hero parallax + sezioni alternate (white section / parallax section / white section / parallax section) + placeholder recensioni/mappa.
+- chi-siamo.html: Hero parallax + sezioni a griglia + sezione parallax con card.
+- servizi.html: Hero parallax + griglia card servizi + sezione parallax con card.
+- progetti.html: Hero parallax + griglia progetti + sezione parallax con card.
+- contatti.html: Hero parallax + blocchi contatti + form + placeholder mappa.
+
+### Cambio di direzione (brand/contenuti)
+- La Home è stata adattata da “impresa edile” a “magazzino rivenditore / ferramenta”:
+  - Hero con località “Castelnuovo Don Bosco”, focus “Vendita Pellet e Stufe”.
+  - Sezione parallax 2: “Materiali Edili e Consegne con Mezzi Propri” con immagine camion.
+  - Sezione parallax 3: “Ferramenta, Antinfortunistica e Fai da Te” con immagine interno.
+- Immagini locali introdotte (root):
+  - negozio.jpg (Hero)
+  - sfondo-camion.jpg (parallax 2)
+  - sfondo-interno.jpg (parallax 3)
+
+### Stato Git (ultima verifica)
+- Modificato: index.html
+- Non tracciati: negozio.jpg, sfondo-camion.jpg, sfondo-interno.jpg
+- Nota: non risulta configurato un remote (git remote -v vuoto), quindi push su GitHub non ancora possibile senza URL repo/branch.
+
+### Note di coerenza UI (importante)
+- Header “identico” (trasparente -> scuro/blur) è stato uniformato su tutte le pagine nella fase precedente.
+- Tuttavia, solo index.html è stato aggiornato con il nuovo posizionamento “Ferramenta/Magazzino”; le altre pagine potrebbero avere ancora testi/terminologia non allineati al nuovo business e vanno adeguate.
+
+### Prossimi passi esatti
+1) Allineare contenuti e microcopy delle altre pagine al nuovo business (ferramenta/materiali/pellet/stufe) mantenendo lo stesso layout:
+   - chi-siamo.html: sostituire “impresa edile/cantieri” con “negozio/magazzino/assistenza al banco”.
+   - servizi.html: rinominare/riorganizzare card servizi (pellet, stufe, materiali edili, ferramenta, antinfortunistica, consegne).
+   - progetti.html: valutare se convertirla in “Prodotti” o “Reparti” (stesso layout, testi diversi).
+   - contatti.html: aggiornare descrizioni e, se necessario, CTA coerenti (preventivo pellet/stufe, richiesta consegna, ecc.).
+2) Verificare che i link in header/footer riflettano la nuova IA (se “Progetti” non serve, rinominare e aggiornare i link in tutte le pagine).
+3) Sostituire i placeholder “Area Widget Google Business” con embed reali:
+   - Widget recensioni Google Business
+   - iframe Google Maps
+4) Commit + push su GitHub:
+   - Impostare remote `origin` con URL repository
+   - Scegliere branch (main/master)
+   - Eseguire `git add index.html negozio.jpg sfondo-camion.jpg sfondo-interno.jpg`
+   - `git commit -m "..."` e `git push -u origin <branch>`

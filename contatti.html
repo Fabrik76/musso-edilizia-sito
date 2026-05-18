@@ -9,7 +9,7 @@
     <style>
         body { font-family: 'Archivo', sans-serif; }
         .gradient-overlay { background: linear-gradient(135deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.35) 100%); }
-        .parallax-fixed { background-size: cover; background-position: center; background-attachment: fixed; }
+        .parallax-fixed { background-attachment: fixed; background-size: cover; background-position: center; }
         @media (max-width: 768px) { .parallax-fixed { background-attachment: scroll; } }
     </style>
     <script>
@@ -32,14 +32,14 @@
     <header id="site-header" class="fixed top-0 left-0 right-0 z-50 bg-transparent transition-colors duration-300">
         <nav class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
             <div class="flex items-center justify-between h-20">
-                <a href="index.html" class="flex items-center gap-3">
-                    <span class="w-10 h-10 bg-construction-red rounded flex items-center justify-center">
-                        <span class="text-white font-bold text-xl">M</span>
-                    </span>
-                    <span class="leading-tight">
-                        <span class="block text-lg font-semibold tracking-wide text-white">MUSSO EDILIZIA S.N.C.</span>
-                        <span class="block text-[11px] tracking-[0.25em] text-white/70">COSTRUZIONI DAL 1985</span>
-                    </span>
+                <a href="index.html" class="flex items-center">
+                    <div class="flex items-center gap-4">
+                        <img src="logo-simbolo.png" alt="Marchio Musso Edilizia" class="h-12 w-auto object-contain">
+                        <div class="flex flex-col justify-center leading-tight">
+                            <span class="text-white font-extrabold text-xl tracking-wide uppercase">MUSSO EDILIZIA S.N.C.</span>
+                            <span class="text-white/70 font-semibold text-xs tracking-[0.25em] uppercase mt-1">DAL 1966</span>
+                        </div>
+                    </div>
                 </a>
 
                 <div class="hidden md:flex items-center gap-10 text-sm tracking-wide">
@@ -73,7 +73,7 @@
         </div>
     </header>
 
-    <section class="relative min-h-[75vh] flex items-center parallax-fixed" style="background-image: url('https://coreva-normal.trae.ai/api/ide/v1/text_to_image?prompt=contact%20us%20concept%20for%20construction%20company%2C%20desk%20with%20blueprints%2C%20hard%20hat%2C%20phone%2C%20high%20quality%20photo&image_size=landscape_16_9');">
+    <section class="relative min-h-[75vh] flex items-center parallax-fixed bg-cover bg-center" style="background-image: url('DSCN0591.jpg');">
         <div class="absolute inset-0 gradient-overlay"></div>
         <div class="relative w-full">
             <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 pt-24 pb-20">
@@ -83,95 +83,171 @@
                         <span class="w-1 h-1 bg-white/70 rounded-full"></span>
                         Preventivi
                     </div>
-                    <h1 class="mt-8 text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.05]">Parliamo del tuo progetto</h1>
-                    <p class="mt-6 text-lg md:text-xl text-white/85 leading-relaxed font-light">Ottimizziamo prima il layout. Le informazioni definitive e i widget verranno inseriti dopo, senza cambiare lo stile.</p>
+                    <h1 class="mt-8 text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.05]">Contatti e Preventivi</h1>
+                    <p class="mt-6 text-lg md:text-xl text-white/85 leading-relaxed font-light">Scrivici su WhatsApp o passa in magazzino: ti diamo una risposta chiara e tecnica, subito.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <main>
-        <section class="bg-white py-32">
+        <section class="bg-zinc-50 py-28">
             <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
-                <div class="grid lg:grid-cols-12 gap-14 items-start">
-                    <div class="lg:col-span-5">
-                        <div class="text-sm tracking-[0.22em] uppercase text-gray-500">Informazioni</div>
-                        <h2 class="mt-3 text-3xl md:text-4xl font-extrabold tracking-tight text-anthracite">Contatti essenziali, look pulito</h2>
-                        <p class="mt-6 text-gray-600 text-lg leading-relaxed font-light">Card leggere con bordi sottili e accenti rossi minimi.</p>
+                <div class="max-w-3xl">
+                    <div class="text-sm tracking-[0.22em] uppercase text-gray-500">Orari e informazioni</div>
+                    <h2 class="mt-3 text-3xl md:text-4xl font-extrabold tracking-tight text-anthracite">Dove trovarci (e come contattarci al volo)</h2>
+                    <p class="mt-6 text-gray-600 text-lg leading-relaxed font-light">I nostri uffici e lo showroom sono a tua disposizione per guidarti nella scelta dei migliori materiali edili e sistemi di riscaldamento.</p>
+                </div>
 
-                        <div class="mt-12 space-y-6">
-                            <div class="border border-gray-200 rounded-2xl shadow-sm p-10">
-                                <div class="flex items-center gap-3">
-                                    <span class="w-2 h-2 bg-construction-red rounded-full"></span>
-                                    <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Indirizzo</div>
-                                </div>
-                                <div class="mt-4 text-lg font-semibold text-anthracite">Via Chivasso 11, Castelnuovo Don Bosco (AT)</div>
+                <div class="mt-14 grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
+                    <div class="grid grid-cols-1 gap-8 h-full">
+                        <div class="bg-white/80 backdrop-blur-md border border-zinc-200 rounded-2xl shadow-md p-10 md:p-12">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-construction-red" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l2.5 2.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Orari negozio</div>
                             </div>
-                            <div class="border border-gray-200 rounded-2xl shadow-sm p-10">
-                                <div class="flex items-center gap-3">
-                                    <span class="w-2 h-2 bg-construction-red rounded-full"></span>
-                                    <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Telefono</div>
+                            <div class="mt-8 space-y-5">
+                                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border border-zinc-200 bg-white rounded-xl px-6 py-5">
+                                    <div class="text-sm font-semibold text-anthracite">Lunedì - Venerdì</div>
+                                    <div class="text-gray-600 font-light">07:30 - 12:30 <span class="text-gray-400 px-2">|</span> 14:00 - 19:30</div>
                                 </div>
-                                <div class="mt-4 text-lg font-semibold text-anthracite">011 987 6255</div>
+                                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border border-zinc-200 bg-white rounded-xl px-6 py-5">
+                                    <div class="text-sm font-semibold text-anthracite">Sabato</div>
+                                    <div class="text-gray-600 font-light">07:30 - 12:30</div>
+                                </div>
+                                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border border-zinc-200 bg-white rounded-xl px-6 py-5">
+                                    <div class="text-sm font-semibold text-anthracite">Domenica</div>
+                                    <div class="text-gray-600 font-light">Chiuso</div>
+                                </div>
                             </div>
-                            <div class="border border-gray-200 rounded-2xl shadow-sm p-10">
-                                <div class="flex items-center gap-3">
-                                    <span class="w-2 h-2 bg-construction-red rounded-full"></span>
-                                    <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Email</div>
+                        </div>
+
+                        <div class="bg-white/80 backdrop-blur-md border border-zinc-200 rounded-2xl shadow-md p-10 md:p-12">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-construction-red" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 01-8 0m8 0a4 4 0 10-8 0m8 0v1a6 6 0 01-12 0V7m12 10H6a2 2 0 00-2 2v2h16v-2a2 2 0 00-2-2z"></path>
+                                </svg>
+                                <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Contatti diretti</div>
+                            </div>
+                            <div class="mt-8 grid sm:grid-cols-2 gap-6">
+                                <div class="border border-zinc-200 bg-white rounded-xl px-6 py-6">
+                                    <div class="flex items-center gap-2 text-xs tracking-[0.25em] uppercase text-gray-500">
+                                        <svg class="w-4 h-4 text-construction-red" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3l2 5-2 1a14 14 0 006 6l1-2 5 2v3a2 2 0 01-2 2C9.82 20 4 14.18 4 7a2 2 0 01-1-2z"></path>
+                                        </svg>
+                                        <span>Telefono</span>
+                                    </div>
+                                    <div class="mt-3 text-lg font-semibold text-anthracite">011 9876255</div>
                                 </div>
-                                <div class="mt-4 text-lg font-semibold text-anthracite">info@mussoedilizia.it</div>
+                                <div class="border border-zinc-200 bg-white rounded-xl px-6 py-6">
+                                    <div class="flex items-center gap-2 text-xs tracking-[0.25em] uppercase text-gray-500">
+                                        <svg class="w-4 h-4 text-construction-red" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16v12H4V6zm0 0l8 7 8-7"></path>
+                                        </svg>
+                                        <span>Email</span>
+                                    </div>
+                                    <div class="mt-3 text-lg font-semibold text-anthracite"><a href="mailto:info@mussoedilizia.com" class="text-anthracite hover:text-construction-red transition-colors font-semibold">info@mussoedilizia.com</a></div>
+                                </div>
+                                <div class="sm:col-span-2 border border-zinc-200 bg-white rounded-xl px-6 py-6">
+                                    <div class="flex items-center gap-2 text-xs tracking-[0.25em] uppercase text-gray-500">
+                                        <svg class="w-4 h-4 text-construction-red" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21s7-4.5 7-11a7 7 0 10-14 0c0 6.5 7 11 7 11z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10a2 2 0 100-4 2 2 0 000 4z"></path>
+                                        </svg>
+                                        <span>Indirizzo</span>
+                                    </div>
+                                    <div class="mt-3 text-lg font-semibold text-anthracite">Via Chivasso 11, Castelnuovo Don Bosco (AT)</div>
+                                </div>
+                            </div>
+                            <div class="mt-10 flex flex-col sm:flex-row gap-4">
+                                <a href="https://wa.me/390119876255?text=Ciao,%20vorrei%20richiedere%20un%20preventivo%20o%20informazioni%20sui%20materiali." target="_blank" rel="noopener" class="inline-flex items-center justify-center bg-construction-red text-white px-8 py-4 rounded font-semibold hover:bg-construction-red-light transition-colors">Scrivici su WhatsApp</a>
+                                <a href="tel:+390119876255" class="inline-flex items-center justify-center bg-anthracite text-white px-8 py-4 rounded font-semibold hover:bg-anthracite-light transition-colors">Chiama ora</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="lg:col-span-7">
-                        <div class="border border-gray-200 rounded-2xl shadow-sm bg-white p-10 md:p-12">
-                            <div class="text-sm tracking-[0.22em] uppercase text-gray-500">Modulo</div>
-                            <h2 class="mt-3 text-3xl md:text-4xl font-extrabold tracking-tight text-anthracite">Richiesta informazioni</h2>
-                            <p class="mt-6 text-gray-600 text-lg leading-relaxed font-light">Form provvisorio, ottimizzato per spaziature e gerarchie tipografiche.</p>
-
-                            <form class="mt-10 space-y-6">
-                                <div class="grid md:grid-cols-2 gap-6">
-                                    <div>
-                                        <label class="block text-xs tracking-[0.25em] uppercase text-gray-500">Nome</label>
-                                        <input type="text" class="mt-3 w-full border border-gray-200 rounded-xl px-5 py-4 text-anthracite placeholder-gray-400 focus:outline-none focus:border-construction-red transition-colors" placeholder="Il tuo nome">
-                                    </div>
-                                    <div>
-                                        <label class="block text-xs tracking-[0.25em] uppercase text-gray-500">Cognome</label>
-                                        <input type="text" class="mt-3 w-full border border-gray-200 rounded-xl px-5 py-4 text-anthracite placeholder-gray-400 focus:outline-none focus:border-construction-red transition-colors" placeholder="Il tuo cognome">
-                                    </div>
-                                </div>
-                                <div class="grid md:grid-cols-2 gap-6">
-                                    <div>
-                                        <label class="block text-xs tracking-[0.25em] uppercase text-gray-500">Email</label>
-                                        <input type="email" class="mt-3 w-full border border-gray-200 rounded-xl px-5 py-4 text-anthracite placeholder-gray-400 focus:outline-none focus:border-construction-red transition-colors" placeholder="tua@email.com">
-                                    </div>
-                                    <div>
-                                        <label class="block text-xs tracking-[0.25em] uppercase text-gray-500">Telefono</label>
-                                        <input type="tel" class="mt-3 w-full border border-gray-200 rounded-xl px-5 py-4 text-anthracite placeholder-gray-400 focus:outline-none focus:border-construction-red transition-colors" placeholder="+39 ...">
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="block text-xs tracking-[0.25em] uppercase text-gray-500">Messaggio</label>
-                                    <textarea rows="5" class="mt-3 w-full border border-gray-200 rounded-xl px-5 py-4 text-anthracite placeholder-gray-400 focus:outline-none focus:border-construction-red transition-colors resize-none" placeholder="Descrivi brevemente il progetto..."></textarea>
-                                </div>
-                                <button type="submit" class="w-full bg-construction-red text-white px-8 py-4 rounded font-semibold hover:bg-construction-red-light transition-colors">Invia</button>
-                            </form>
-                        </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 lg:mt-0 h-full">
+                        <img src="DSCN0585.JPG" alt="Esposizione Stufe Musso Edilizia" class="w-full h-72 lg:h-full object-cover rounded-xl shadow-md border border-zinc-800">
+                        <img src="DSCN0603.jpg" alt="Banco Accettazione Musso Edilizia" class="w-full h-72 lg:h-full object-cover rounded-xl shadow-md border border-zinc-800">
                     </div>
                 </div>
+
+                <section class="relative h-[30vh] parallax-fixed bg-cover bg-center flex items-center justify-center my-12" style="background-image: url('DSCN0593.jpg');">
+                    <div class="absolute inset-0 gradient-overlay"></div>
+                    <div class="relative max-w-5xl mx-auto px-6 text-center">
+                        <div class="text-white font-extrabold tracking-tight text-2xl md:text-3xl">Professionalità, materiali certificati e supporto tecnico al servizio del tuo cantiere.</div>
+                    </div>
+                </section>
+
+                <div class="mt-14 bg-white/80 backdrop-blur-md border border-zinc-200 rounded-2xl shadow-md p-10 md:p-12">
+                    <div class="text-sm tracking-[0.22em] uppercase text-gray-500">Modulo</div>
+                    <h2 class="mt-3 text-3xl md:text-4xl font-extrabold tracking-tight text-anthracite">Richiesta informazioni</h2>
+                    <p class="mt-6 text-gray-600 text-lg leading-relaxed font-light">Se preferisci, lascia un messaggio: ti ricontattiamo noi.</p>
+
+                    <div class="mt-10">
+                    <form action="https://www.mussoedilizia.com/cgi-bin/Form2Email.pl" method="POST" class="space-y-6">
+                        <input type="hidden" name="receiver" value="info@mussoedilizia.com">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs tracking-[0.25em] uppercase text-gray-500">Nome</label>
+                                <input type="text" name="name" class="mt-3 w-full border border-gray-200 rounded-xl px-5 py-4 text-anthracite placeholder-gray-400 focus:outline-none focus:border-construction-red transition-colors bg-white/90" placeholder="Il tuo nome">
+                            </div>
+                            <div>
+                                <label class="block text-xs tracking-[0.25em] uppercase text-gray-500">Cognome</label>
+                                <input type="text" name="surname" class="mt-3 w-full border border-gray-200 rounded-xl px-5 py-4 text-anthracite placeholder-gray-400 focus:outline-none focus:border-construction-red transition-colors bg-white/90" placeholder="Il tuo cognome">
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs tracking-[0.25em] uppercase text-gray-500">Email</label>
+                                <input type="email" name="email" class="mt-3 w-full border border-gray-200 rounded-xl px-5 py-4 text-anthracite placeholder-gray-400 focus:outline-none focus:border-construction-red transition-colors bg-white/90" placeholder="tua@email.com">
+                            </div>
+                            <div>
+                                <label class="block text-xs tracking-[0.25em] uppercase text-gray-500">Telefono</label>
+                                <input type="tel" name="phone" class="mt-3 w-full border border-gray-200 rounded-xl px-5 py-4 text-anthracite placeholder-gray-400 focus:outline-none focus:border-construction-red transition-colors bg-white/90" placeholder="+39 ...">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs tracking-[0.25em] uppercase text-gray-500">Oggetto</label>
+                            <input type="text" name="subject" class="mt-3 w-full border border-gray-200 rounded-xl px-5 py-4 text-anthracite placeholder-gray-400 focus:outline-none focus:border-construction-red transition-colors bg-white/90" placeholder="Es. Preventivo materiali, disponibilità prodotto...">
+                        </div>
+                        <div>
+                            <label class="block text-xs tracking-[0.25em] uppercase text-gray-500">Messaggio</label>
+                            <textarea rows="5" name="message" class="mt-3 w-full border border-gray-200 rounded-xl px-5 py-4 text-anthracite placeholder-gray-400 focus:outline-none focus:border-construction-red transition-colors resize-none bg-white/90" placeholder="Descrivi brevemente la richiesta..."></textarea>
+                        </div>
+                        <div class="flex items-start gap-3 pt-2">
+                            <input type="checkbox" id="privacy" name="privacy" required class="mt-1 accent-construction-red">
+                            <label for="privacy" class="text-sm text-gray-400 font-light leading-tight">
+                                Accetto il trattamento dei dati personali ai sensi del Regolamento UE 2016/679 (GDPR) per la gestione della mia richiesta.
+                            </label>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="https://wa.me/390119876255?text=Ciao,%20vorrei%20richiedere%20un%20preventivo%20o%20informazioni%20sui%20materiali." target="_blank" rel="noopener" class="inline-flex items-center justify-center bg-construction-red text-white px-8 py-4 rounded font-semibold hover:bg-construction-red-light transition-colors flex-1">Invia su WhatsApp</a>
+                            <button type="submit" class="inline-flex items-center justify-center bg-anthracite text-white px-8 py-4 rounded font-semibold hover:bg-anthracite-light transition-colors flex-1">Invia Messaggio</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+
+                <section class="mt-12 w-full overflow-hidden border border-white/10 bg-anthracite">
+                    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-10">
+                        <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-white">Mappa</h2>
+                        <div class="w-full h-96 rounded-xl overflow-hidden shadow-md border border-gray-200 mt-6">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2815.117180470295!2d7.9621376!3d45.1147986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47887372da061ef3%3A0x6b7720cf1f57997a!2sVia%20Chivasso%2C%2011%2C%2014022%20Castelnuovo%20Don%20Bosco%20AT!5e0!3m2!1sit!2sit!4v1715939200000!5m2!1sit!2sit"
+                                class="w-full h-full border-0"
+                                allowfullscreen=""
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                    </div>
+                </section>
             </div>
         </section>
 
-        <section class="w-full">
-            <div class="w-full h-[460px] flex items-center justify-center border-y border-gray-200 bg-white">
-                <div class="border-2 border-dashed border-gray-300 bg-gray-50 rounded-2xl p-12 md:p-14 text-center">
-                    <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Area Widget Google Business</div>
-                    <div class="mt-4 text-2xl md:text-3xl font-extrabold tracking-tight text-anthracite">Mappa Google</div>
-                    <div class="mt-4 text-gray-600 font-light">Inserire qui l’iframe di Google Maps (a tutta larghezza).</div>
-                </div>
-            </div>
-        </section>
     </main>
 
     <footer class="bg-anthracite-light py-12">

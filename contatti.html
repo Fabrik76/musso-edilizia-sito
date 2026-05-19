@@ -47,7 +47,7 @@
                     <a href="chi-siamo.html" class="text-white/90 hover:text-white transition-colors">Chi Siamo</a>
                     <a href="servizi.html" class="text-white/90 hover:text-white transition-colors">Servizi</a>
                     <a href="prodotti.html" class="text-white/90 hover:text-white transition-colors">Prodotti</a>
-                    <a href="contatti.html" class="text-white/90 hover:text-white transition-colors">Contatti</a>
+                    <a href="contatti.html" class="text-white font-semibold">Contatti</a>
                     <a href="contatti.html" class="bg-construction-red text-white px-6 py-2.5 rounded font-semibold hover:bg-construction-red-light transition-colors">Richiedi Preventivo</a>
                 </div>
 
@@ -66,32 +66,47 @@
                     <a href="chi-siamo.html" class="block text-white/90 text-base">Chi Siamo</a>
                     <a href="servizi.html" class="block text-white/90 text-base">Servizi</a>
                     <a href="prodotti.html" class="block text-white/90 text-base">Prodotti</a>
-                    <a href="contatti.html" class="block text-white/90 text-base">Contatti</a>
+                    <a href="contatti.html" class="block text-white text-base font-semibold">Contatti</a>
                     <a href="contatti.html" class="block bg-construction-red text-white px-5 py-3 rounded font-semibold text-center">Richiedi Preventivo</a>
                 </div>
             </div>
         </div>
     </header>
 
-    <section class="relative min-h-[75vh] flex items-center parallax-fixed bg-cover bg-center" style="background-image: url('DSCN0593.jpg');">
+    <section class="relative parallax-fixed py-32" style="background-image: url('DSCN0593.jpg');">
         <div class="absolute inset-0 gradient-overlay"></div>
-        <div class="relative w-full">
-            <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 pt-24 pb-20">
-                <div class="max-w-3xl">
-                    <div class="inline-flex items-center gap-3 bg-white/10 border border-white/15 text-white px-5 py-2 rounded-full text-xs tracking-[0.25em] uppercase">
-                        Contatti
-                        <span class="w-1 h-1 bg-white/70 rounded-full"></span>
-                        Preventivi
+        <div class="relative max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+            <div class="max-w-4xl bg-white/90 backdrop-blur-sm rounded-2xl shadow-sm p-10 md:p-12">
+                <div class="grid md:grid-cols-12 gap-10 items-center">
+                    <div class="md:col-span-7">
+                        <div class="text-sm tracking-[0.22em] uppercase text-gray-500">Contatti</div>
+                        <h1 class="mt-3 text-3xl md:text-4xl font-extrabold tracking-tight text-anthracite">Contatti e Preventivi</h1>
+                        <p class="mt-6 text-gray-600 text-lg leading-relaxed font-light">Scrivici su WhatsApp o passa in magazzino: ti diamo una risposta chiara e tecnica, subito.</p>
+                        <div class="mt-10">
+                            <a href="#informazioni" class="inline-flex items-center justify-center bg-anthracite text-white px-7 py-3.5 rounded font-semibold hover:bg-anthracite-light transition-colors">Tutte le informazioni</a>
+                        </div>
                     </div>
-                    <h1 class="mt-8 text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.05]">Contatti e Preventivi</h1>
-                    <p class="mt-6 text-lg md:text-xl text-white/85 leading-relaxed font-light">Scrivici su WhatsApp o passa in magazzino: ti diamo una risposta chiara e tecnica, subito.</p>
+                    <div class="md:col-span-5">
+                        <div class="grid grid-cols-2 gap-6">
+                            <div>
+                                <div class="text-3xl font-extrabold text-construction-red">WHATSAPP</div>
+                                <div class="mt-1 text-sm font-semibold text-anthracite uppercase tracking-wider">Risposta</div>
+                                <div class="text-xs text-gray-500 mt-1">Rapida</div>
+                            </div>
+                            <div>
+                                <div class="text-3xl font-extrabold text-construction-red">011</div>
+                                <div class="mt-1 text-sm font-semibold text-anthracite uppercase tracking-wider">Telefono</div>
+                                <div class="text-xs text-gray-500 mt-1">Diretto</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <main>
-        <section class="bg-zinc-50 py-28">
+        <section class="bg-zinc-50 py-28" id="informazioni">
             <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
                 <div class="max-w-3xl">
                     <div class="text-sm tracking-[0.22em] uppercase text-gray-500">Orari e informazioni</div>
@@ -174,10 +189,9 @@
                     </div>
                 </div>
 
-                <section class="relative h-[30vh] parallax-fixed bg-cover bg-center flex items-center justify-center my-12" style="background-image: url('DSCN0593.jpg');">
-                    <div class="absolute inset-0 gradient-overlay"></div>
-                    <div class="relative max-w-5xl mx-auto px-6 text-center">
-                        <div class="text-white font-extrabold tracking-tight text-2xl md:text-3xl">Professionalità, materiali certificati e supporto tecnico al servizio del tuo cantiere.</div>
+                <section class="bg-zinc-50 border border-gray-200 rounded-2xl shadow-sm flex items-center justify-center my-12 py-16">
+                    <div class="max-w-5xl mx-auto px-6 text-center">
+                        <div class="text-anthracite font-extrabold tracking-tight text-2xl md:text-3xl">Professionalità, materiali certificati e supporto tecnico al servizio del tuo cantiere.</div>
                     </div>
                 </section>
 
@@ -231,16 +245,20 @@
                     </div>
                 </div>
 
-                <section class="mt-12 w-full overflow-hidden border border-white/10 bg-anthracite">
+                <section id="mappa" class="mt-12 w-full overflow-hidden border border-white/10 bg-anthracite">
                     <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-10">
                         <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-white">Mappa</h2>
                         <div class="w-full h-96 rounded-xl overflow-hidden shadow-md border border-gray-200 mt-6 relative bg-white">
-                            <div data-cookie-placeholder class="absolute inset-0 bg-white flex items-center justify-center p-8 text-center">
-                                <div class="max-w-md">
-                                    <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Google Maps</div>
-                                    <div class="mt-3 text-2xl font-extrabold tracking-tight text-anthracite">Mappa disattivata</div>
-                                    <div class="mt-4 text-gray-600 leading-relaxed font-light">Per caricare la mappa interattiva, accetta i cookie per i contenuti esterni.</div>
-                                    <button type="button" onclick="window.mussoCookie && window.mussoCookie.accept && window.mussoCookie.accept()" class="mt-6 inline-flex items-center justify-center bg-construction-red text-white px-6 py-3 rounded font-semibold hover:bg-construction-red-light transition-colors">Accetta e carica</button>
+                            <div data-cookie-placeholder class="absolute inset-0 bg-zinc-100 flex items-center justify-center p-8 text-center">
+                                <div class="max-w-xl">
+                                    <div class="mx-auto w-12 h-12 rounded-2xl bg-white border border-gray-200 flex items-center justify-center text-anthracite">
+                                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11V9a4 4 0 00-8 0v2m1 0h6a2 2 0 012 2v6a2 2 0 01-2 2H7a2 2 0 01-2-2v-6a2 2 0 012-2z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="mt-6 text-2xl font-extrabold tracking-tight text-anthracite">Contenuto bloccato</div>
+                                    <div class="mt-4 text-gray-600 leading-relaxed font-light">Per visualizzare questo contenuto interattivo (Mappa), è necessario accettare i cookie dal banner in alto.</div>
+                                    <button type="button" onclick="window.mussoCookie && window.mussoCookie.accept && window.mussoCookie.accept()" class="mt-6 inline-flex items-center justify-center bg-construction-red text-white px-6 py-3 rounded font-semibold hover:bg-construction-red-light transition-colors">Accetta e visualizza</button>
                                 </div>
                             </div>
                             <iframe
@@ -270,6 +288,21 @@
 
     </main>
 
+    <section class="relative parallax-fixed py-32" style="background-image: url('DSCN0603.jpg');">
+        <div class="absolute inset-0 gradient-overlay"></div>
+        <div class="relative max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+            <div class="max-w-4xl bg-white/90 backdrop-blur-sm rounded-2xl shadow-sm p-10 md:p-12">
+                <div class="grid md:grid-cols-12 gap-10 items-center">
+                    <div class="md:col-span-8">
+                        <div class="text-2xl md:text-3xl font-extrabold tracking-tight text-anthracite">Passa a trovarci a Castelnuovo Don Bosco. Il nostro team è pronto ad aiutarti.</div>
+                    </div>
+                    <div class="md:col-span-4 flex md:justify-end">
+                        <a href="#mappa" class="inline-flex items-center justify-center bg-construction-red text-white px-8 py-4 rounded font-semibold hover:bg-construction-red-light transition-colors w-full md:w-auto">Vedi la mappa</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <footer class="bg-anthracite-light py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

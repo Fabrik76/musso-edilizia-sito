@@ -23,6 +23,11 @@
       el.classList.toggle('hidden', shouldLoad);
     });
 
+    const contents = Array.from(document.querySelectorAll('[data-cookie-content]'));
+    contents.forEach(el => {
+      el.classList.toggle('hidden', !shouldLoad);
+    });
+
     if (!shouldLoad) return;
 
     Array.from(document.querySelectorAll('iframe[data-cookie-src]')).forEach(iframe => {
@@ -30,6 +35,16 @@
       if (!src) return;
       if (iframe.getAttribute('src') === src) return;
       iframe.setAttribute('src', src);
+    });
+
+    Array.from(document.querySelectorAll('[data-cookie-script-src]')).forEach(host => {
+      const src = host.getAttribute('data-cookie-script-src');
+      if (!src) return;
+      if (document.querySelector(`script[src="${src}"]`)) return;
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = src;
+      document.body.appendChild(script);
     });
   };
 
@@ -47,7 +62,7 @@
 
     const banner = document.createElement('div');
     banner.id = 'cookie-banner';
-    banner.className = 'fixed inset-x-0 bottom-0 z-[60] p-4 sm:p-6';
+    banner.className = 'fixed inset-x-0 top-0 z-[60] p-4 sm:p-6';
     banner.innerHTML = `
       <div class="max-w-5xl mx-auto bg-anthracite text-white rounded-2xl border border-white/10 shadow-2xl overflow-hidden">
         <div class="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">

@@ -31,18 +31,6 @@
       if (iframe.getAttribute('src') === src) return;
       iframe.setAttribute('src', src);
     });
-
-    Array.from(document.querySelectorAll('[data-cookie-script-src]')).forEach(host => {
-      const src = host.getAttribute('data-cookie-script-src');
-      if (!src) return;
-      if (host.getAttribute('data-cookie-loaded') === '1') return;
-      const script = document.createElement('script');
-      script.defer = true;
-      script.async = true;
-      script.src = src;
-      host.setAttribute('data-cookie-loaded', '1');
-      host.appendChild(script);
-    });
   };
 
   const hideBanner = () => {
@@ -67,7 +55,7 @@
             <div class="text-xs tracking-[0.25em] uppercase text-white/70">Cookie</div>
             <div class="mt-2 text-lg font-extrabold tracking-tight">Preferenze privacy</div>
             <div class="mt-2 text-sm text-white/80 leading-relaxed font-light">
-              Usiamo solo cookie tecnici. Contenuti esterni (Google Maps e widget recensioni) vengono caricati solo con il tuo consenso.
+              Usiamo solo cookie tecnici. Contenuti esterni (Google Maps) vengono caricati solo con il tuo consenso.
               <a href="privacy.html" class="underline text-white/90 hover:text-white">Privacy Policy</a>
               &bull;
               <a href="cookie.html" class="underline text-white/90 hover:text-white">Cookie Policy</a>
@@ -97,4 +85,3 @@
     reject: () => setConsent(REJECTED)
   };
 })();
-

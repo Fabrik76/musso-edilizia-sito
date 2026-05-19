@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pannello Admin - MUSSO EDILIZIA S.N.C.</title>
+  <meta name="robots" content="noindex,nofollow">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Archivo', sans-serif; }
+  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'anthracite': '#1a1a1a',
+            'anthracite-light': '#2d2d2d',
+            'construction-red': '#c8102e',
+            'construction-red-light': '#e03a4f'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-zinc-50 text-anthracite min-h-screen">
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-zinc-200">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-4 flex items-center justify-between gap-6">
+      <div class="flex items-center gap-4">
+        <img src="https://raw.githubusercontent.com/Fabrik76/musso-edilizia-sito/main/logo-simbolo.png" alt="Marchio Musso Edilizia" class="h-11 w-auto object-contain">
+        <div class="leading-tight">
+          <div class="text-lg sm:text-xl font-extrabold tracking-wide uppercase">Pannello Admin</div>
+          <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Listino e promozioni</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="reloadBtn" class="hidden sm:inline-flex items-center justify-center border border-zinc-200 bg-white px-4 py-2.5 rounded-xl font-semibold text-sm hover:bg-zinc-50 transition-colors">Ricarica</button>
+        <button id="saveBtn" class="inline-flex items-center justify-center bg-construction-red text-white px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-construction-red-light transition-colors">Salva modifiche</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-10">
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+      <div class="lg:col-span-4">
+        <div class="bg-white border border-zinc-200 rounded-2xl shadow-sm p-7">
+          <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Connessione</div>
+          <h2 class="mt-3 text-2xl font-extrabold tracking-tight text-anthracite">Drive + Config</h2>
+          <p class="mt-4 text-gray-600 leading-relaxed font-light">Questa pagina legge il listino dall’Excel su Drive e salva le modifiche in un file JSON su Drive.</p>
+
+          <div class="mt-6 space-y-4">
+            <div>
+              <label class="block text-xs tracking-[0.25em] uppercase text-gray-500">Admin Key</label>
+              <input id="adminKeyInput" type="password" class="mt-2 w-full border border-zinc-200 rounded-xl px-4 py-3 bg-white focus:outline-none focus:border-construction-red transition-colors" placeholder="Inserisci la chiave">
+              <div class="mt-2 text-xs text-gray-500">La chiave viene salvata solo in locale.</div>
+            </div>
+          </div>
+
+          <div class="mt-6 flex items-center gap-3">
+            <button id="connectBtn" class="inline-flex items-center justify-center bg-anthracite text-white px-5 py-3 rounded-xl font-semibold hover:bg-anthracite-light transition-colors w-full">Connetti e carica</button>
+          </div>
+
+          <div class="mt-6 border-t border-zinc-200 pt-5 space-y-2 text-sm text-gray-600">
+            <div class="flex items-center justify-between">
+              <span>Prodotti caricati</span>
+              <span id="countLabel" class="font-semibold text-anthracite">—</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span>Ultimo salvataggio</span>
+              <span id="savedLabel" class="font-semibold text-anthracite">—</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span>Stato</span>
+              <span id="statusLabel" class="font-semibold text-gray-500">Non connesso</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-8">
+        <div class="bg-white border border-zinc-200 rounded-2xl shadow-sm p-7">
+          <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
+            <div class="max-w-2xl">
+              <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Listino</div>
+              <h2 class="mt-3 text-2xl sm:text-3xl font-extrabold tracking-tight text-anthracite">Gestione visibilità e promozioni</h2>
+              <p class="mt-4 text-gray-600 leading-relaxed font-light">Usa gli switch per pubblicare i prodotti sul sito e seleziona “PROMO” per portarli nelle vetrine.</p>
+            </div>
+            <div class="flex gap-3 w-full sm:w-auto">
+              <input id="searchInput" type="search" class="w-full sm:w-72 border border-zinc-200 rounded-xl px-4 py-3 bg-white focus:outline-none focus:border-construction-red transition-colors" placeholder="Cerca per codice o nome...">
+            </div>
+          </div>
+
+          <div class="mt-7 grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="border border-zinc-200 rounded-xl px-4 py-3">
+              <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Filtro</div>
+              <select id="categorySelect" class="mt-2 w-full bg-white focus:outline-none text-anthracite">
+                <option value="all">Tutte le categorie</option>
+              </select>
+            </div>
+            <div class="border border-zinc-200 rounded-xl px-4 py-3">
+              <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Mostra</div>
+              <select id="visibilitySelect" class="mt-2 w-full bg-white focus:outline-none text-anthracite">
+                <option value="all">Tutti</option>
+                <option value="visible">Solo visibili</option>
+                <option value="hidden">Solo nascosti</option>
+              </select>
+            </div>
+            <div class="border border-zinc-200 rounded-xl px-4 py-3">
+              <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Promozioni</div>
+              <select id="promoSelect" class="mt-2 w-full bg-white focus:outline-none text-anthracite">
+                <option value="all">Tutti</option>
+                <option value="promo">Solo promo</option>
+                <option value="no-promo">No promo</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mt-8">
+            <div id="loadingBox" class="hidden border border-zinc-200 rounded-2xl p-6 text-gray-600 bg-zinc-50">Caricamento in corso...</div>
+            <div id="errorBox" class="hidden border border-red-200 rounded-2xl p-6 text-red-700 bg-red-50"></div>
+            <div id="listBox" class="grid grid-cols-1 gap-5"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <template id="rowTemplate">
+    <div class="border border-zinc-200 rounded-2xl p-6 bg-white shadow-sm">
+      <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-5">
+        <div class="min-w-0">
+          <div class="flex items-center gap-3 flex-wrap">
+            <span data-role="code" class="inline-flex items-center text-xs tracking-[0.25em] uppercase text-gray-500 bg-zinc-50 border border-zinc-200 px-3 py-1 rounded-full"></span>
+            <span data-role="brand" class="text-xs tracking-[0.25em] uppercase text-gray-500"></span>
+            <span data-role="promoBadge" class="hidden inline-flex items-center bg-construction-red text-white text-xs font-extrabold tracking-[0.25em] px-3 py-1 rounded-full">PROMO</span>
+          </div>
+          <div class="mt-4 text-xl font-extrabold tracking-tight text-anthracite" data-role="name"></div>
+          <div class="mt-2 text-sm text-gray-500 font-light" data-role="category"></div>
+        </div>
+
+        <div class="flex items-center gap-3 sm:justify-end">
+          <div class="text-right">
+            <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Prezzo</div>
+            <div class="mt-1 text-lg font-extrabold text-anthracite" data-role="price"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
+        <div class="lg:col-span-6">
+          <label class="block text-xs tracking-[0.25em] uppercase text-gray-500">Nome pubblico</label>
+          <input data-role="publicName" type="text" class="mt-2 w-full border border-zinc-200 rounded-xl px-4 py-3 bg-white focus:outline-none focus:border-construction-red transition-colors" placeholder="Nome visibile sul sito">
+        </div>
+        <div class="lg:col-span-6 flex flex-col sm:flex-row gap-4">
+          <div class="flex-1 border border-zinc-200 rounded-xl px-4 py-3">
+            <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Visibilità</div>
+            <div class="mt-2 flex items-center justify-between gap-3">
+              <span class="text-sm text-gray-600">Mostra sul sito</span>
+              <button data-role="visibleToggle" type="button" class="relative inline-flex h-7 w-12 items-center rounded-full bg-zinc-200 transition-colors">
+                <span class="inline-block h-5 w-5 transform rounded-full bg-white transition-transform translate-x-1"></span>
+              </button>
+            </div>
+          </div>
+          <div class="flex-1 border border-zinc-200 rounded-xl px-4 py-3">
+            <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Promozione</div>
+            <div class="mt-2 flex items-center justify-between gap-3">
+              <span class="text-sm text-gray-600">In promo</span>
+              <button data-role="promoToggle" type="button" class="relative inline-flex h-7 w-12 items-center rounded-full bg-zinc-200 transition-colors">
+                <span class="inline-block h-5 w-5 transform rounded-full bg-white transition-transform translate-x-1"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    const state = { adminKey: '', items: [], config: {}, lastSaved: null, dirty: false };
+    const els = {
+      adminKeyInput: document.getElementById('adminKeyInput'),
+      connectBtn: document.getElementById('connectBtn'),
+      reloadBtn: document.getElementById('reloadBtn'),
+      saveBtn: document.getElementById('saveBtn'),
+      statusLabel: document.getElementById('statusLabel'),
+      countLabel: document.getElementById('countLabel'),
+      savedLabel: document.getElementById('savedLabel'),
+      searchInput: document.getElementById('searchInput'),
+      categorySelect: document.getElementById('categorySelect'),
+      visibilitySelect: document.getElementById('visibilitySelect'),
+      promoSelect: document.getElementById('promoSelect'),
+      loadingBox: document.getElementById('loadingBox'),
+      errorBox: document.getElementById('errorBox'),
+      listBox: document.getElementById('listBox'),
+      rowTemplate: document.getElementById('rowTemplate')
+    };
+
+    const storageKey = 'musso_admin_key';
+    const safeText = (v) => (v == null ? '' : String(v));
+    const toMoney = (v) => {
+      if (v == null || v === '') return '—';
+      const n = Number(v);
+      if (Number.isFinite(n)) return new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(n);
+      return safeText(v);
+    };
+    const getItemKey = (item) => safeText(item.code || item.id || item.name);
+    const getConfigFor = (key) => {
+      const existing = state.config[key];
+      if (existing) return existing;
+      state.config[key] = { visible: false, promo: false, publicName: '' };
+      return state.config[key];
+    };
+
+    const setStatus = (text, tone = 'neutral') => {
+      els.statusLabel.textContent = text;
+      els.statusLabel.className = 'font-semibold ' + (tone === 'ok' ? 'text-emerald-600' : tone === 'bad' ? 'text-red-600' : 'text-gray-500');
+    };
+
+    const showError = (msg) => {
+      els.errorBox.textContent = msg;
+      els.errorBox.classList.remove('hidden');
+    };
+
+    const clearError = () => {
+      els.errorBox.textContent = '';
+      els.errorBox.classList.add('hidden');
+    };
+
+    const setLoading = (loading) => {
+      els.loadingBox.classList.toggle('hidden', !loading);
+    };
+
+    const apiUrl = (params) => {
+      const u = new URL(window.location.href);
+      Object.entries(params).forEach(([k, v]) => u.searchParams.set(k, v));
+      if (state.adminKey) u.searchParams.set('key', state.adminKey);
+      return u.toString();
+    };
+
+    const fetchJson = async (url, opts) => {
+      const res = await fetch(url, opts);
+      const text = await res.text();
+      let data;
+      try { data = JSON.parse(text); } catch { data = { ok: false, error: 'Risposta non valida', raw: text }; }
+      return { status: res.status, data };
+    };
+
+    const toggleButtonState = (btn, isOn) => {
+      btn.classList.toggle('bg-zinc-200', !isOn);
+      btn.classList.toggle('bg-construction-red', isOn);
+      const knob = btn.querySelector('span');
+      knob.classList.toggle('translate-x-1', !isOn);
+      knob.classList.toggle('translate-x-6', isOn);
+    };
+
+    const buildCategoryOptions = () => {
+      const existing = new Set(['all']);
+      state.items.forEach(it => {
+        const cat = safeText(it.category).trim();
+        if (cat) existing.add(cat);
+      });
+      const current = els.categorySelect.value || 'all';
+      els.categorySelect.innerHTML = '';
+      Array.from(existing).sort((a, b) => a.localeCompare(b, 'it')).forEach(cat => {
+        const opt = document.createElement('option');
+        opt.value = cat === 'all' ? 'all' : cat;
+        opt.textContent = cat === 'all' ? 'Tutte le categorie' : cat;
+        els.categorySelect.appendChild(opt);
+      });
+      els.categorySelect.value = existing.has(current) ? current : 'all';
+    };
+
+    const passesFilters = (item) => {
+      const q = safeText(els.searchInput.value).trim().toLowerCase();
+      const cat = els.categorySelect.value;
+      const vis = els.visibilitySelect.value;
+      const promo = els.promoSelect.value;
+
+      const key = getItemKey(item);
+      const cfg = getConfigFor(key);
+
+      if (q) {
+        const hay = (safeText(item.code) + ' ' + safeText(item.name) + ' ' + safeText(cfg.publicName)).toLowerCase();
+        if (!hay.includes(q)) return false;
+      }
+      if (cat && cat !== 'all' && safeText(item.category) !== cat) return false;
+      if (vis === 'visible' && !cfg.visible) return false;
+      if (vis === 'hidden' && cfg.visible) return false;
+      if (promo === 'promo' && !cfg.promo) return false;
+      if (promo === 'no-promo' && cfg.promo) return false;
+      return true;
+    };
+
+    const render = () => {
+      buildCategoryOptions();
+      els.listBox.innerHTML = '';
+      const filtered = state.items.filter(passesFilters);
+
+      filtered.forEach(item => {
+        const key = getItemKey(item);
+        const cfg = getConfigFor(key);
+
+        const node = els.rowTemplate.content.firstElementChild.cloneNode(true);
+        node.querySelector('[data-role="code"]').textContent = safeText(item.code || '—');
+        node.querySelector('[data-role="brand"]').textContent = safeText(item.brand || '');
+        node.querySelector('[data-role="name"]').textContent = safeText(item.name || '');
+        node.querySelector('[data-role="category"]').textContent = safeText(item.category || '');
+        node.querySelector('[data-role="price"]').textContent = toMoney(item.price);
+
+        const promoBadge = node.querySelector('[data-role="promoBadge"]');
+        promoBadge.classList.toggle('hidden', !cfg.promo);
+
+        const publicNameInput = node.querySelector('[data-role="publicName"]');
+        publicNameInput.value = safeText(cfg.publicName || '');
+        publicNameInput.addEventListener('input', () => {
+          cfg.publicName = publicNameInput.value;
+          state.dirty = true;
+        });
+
+        const visibleBtn = node.querySelector('[data-role="visibleToggle"]');
+        toggleButtonState(visibleBtn, !!cfg.visible);
+        visibleBtn.addEventListener('click', () => {
+          cfg.visible = !cfg.visible;
+          toggleButtonState(visibleBtn, cfg.visible);
+          state.dirty = true;
+          render();
+        });
+
+        const promoBtn = node.querySelector('[data-role="promoToggle"]');
+        toggleButtonState(promoBtn, !!cfg.promo);
+        promoBtn.addEventListener('click', () => {
+          cfg.promo = !cfg.promo;
+          toggleButtonState(promoBtn, cfg.promo);
+          state.dirty = true;
+          render();
+        });
+
+        els.listBox.appendChild(node);
+      });
+
+      els.countLabel.textContent = String(state.items.length);
+    };
+
+    const loadData = async () => {
+      clearError();
+      setLoading(true);
+      setStatus('Caricamento...', 'neutral');
+
+      const { status, data } = await fetchJson(apiUrl({ action: 'list' }));
+      setLoading(false);
+
+      if (status !== 200 || !data || data.ok !== true) {
+        showError(data && data.error ? data.error : 'Errore nel caricamento.');
+        setStatus('Errore', 'bad');
+        return;
+      }
+
+      state.items = Array.isArray(data.items) ? data.items : [];
+      state.config = data.config && typeof data.config === 'object' ? data.config : {};
+      state.lastSaved = data.savedAt || null;
+      els.savedLabel.textContent = state.lastSaved ? new Date(state.lastSaved).toLocaleString('it-IT') : '—';
+      setStatus('Connesso', 'ok');
+      render();
+    };
+
+    const saveData = async () => {
+      clearError();
+      setLoading(true);
+      setStatus('Salvataggio...', 'neutral');
+
+      const body = JSON.stringify({ config: state.config });
+      const { status, data } = await fetchJson(apiUrl({ action: 'save' }), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body
+      });
+
+      setLoading(false);
+      if (status !== 200 || !data || data.ok !== true) {
+        showError(data && data.error ? data.error : 'Errore nel salvataggio.');
+        setStatus('Errore', 'bad');
+        return;
+      }
+
+      state.lastSaved = data.savedAt || new Date().toISOString();
+      els.savedLabel.textContent = new Date(state.lastSaved).toLocaleString('it-IT');
+      state.dirty = false;
+      setStatus('Salvato', 'ok');
+    };
+
+    els.connectBtn.addEventListener('click', async () => {
+      state.adminKey = els.adminKeyInput.value;
+      localStorage.setItem(storageKey, state.adminKey);
+      await loadData();
+    });
+
+    els.reloadBtn.addEventListener('click', loadData);
+    els.saveBtn.addEventListener('click', saveData);
+
+    [els.searchInput, els.categorySelect, els.visibilitySelect, els.promoSelect].forEach(el => {
+      el.addEventListener('input', render);
+      el.addEventListener('change', render);
+    });
+
+    window.addEventListener('beforeunload', (e) => {
+      if (!state.dirty) return;
+      e.preventDefault();
+      e.returnValue = '';
+    });
+
+    els.adminKeyInput.value = localStorage.getItem(storageKey) || '';
+  </script>
+</body>
+</html>
+

@@ -252,53 +252,9 @@
                 <a href="prodotti.html" class="inline-flex items-center justify-center bg-anthracite text-white px-7 py-3.5 rounded font-semibold hover:bg-anthracite-light transition-colors">Vai al catalogo</a>
             </div>
 
-            <div class="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="relative bg-white/80 backdrop-blur-md border border-white/30 rounded-2xl shadow-sm p-8 overflow-hidden">
-                    <span class="absolute top-6 right-6 bg-construction-red text-white text-xs font-extrabold tracking-[0.25em] px-3 py-1 rounded-full">PROMO</span>
-                    <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Pellet</div>
-                    <div class="mt-4 text-2xl font-extrabold tracking-tight text-anthracite">Pellet ENplus A1</div>
-                    <p class="mt-4 text-gray-600 leading-relaxed font-light">Sacco singolo o bancale. Disponibilità reale e consegna su richiesta con mezzi propri.</p>
-                    <div class="mt-6 flex items-baseline gap-3">
-                        <div class="text-lg font-extrabold text-anthracite">Prezzo al banco</div>
-                        <div class="text-xs tracking-[0.22em] uppercase text-gray-500">su richiesta</div>
-                    </div>
-                    <a href="https://wa.me/390119876255?text=Ciao%2C%20vorrei%20informazioni%20sulla%20promo%20Pellet%20ENplus%20A1." target="_blank" rel="noopener" class="mt-8 inline-flex items-center justify-center bg-construction-red text-white px-6 py-3 rounded font-semibold hover:bg-construction-red-light transition-colors w-full">WhatsApp</a>
-                </div>
-
-                <div class="relative bg-white/80 backdrop-blur-md border border-white/30 rounded-2xl shadow-sm p-8 overflow-hidden">
-                    <span class="absolute top-6 right-6 bg-construction-red text-white text-xs font-extrabold tracking-[0.25em] px-3 py-1 rounded-full">PROMO</span>
-                    <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Edilizia</div>
-                    <div class="mt-4 text-2xl font-extrabold tracking-tight text-anthracite">Weber.Plan MR81 (25 Kg)</div>
-                    <p class="mt-4 text-gray-600 leading-relaxed font-light">Malta tecnica premiscelata per murature, ripristini e risanamenti ad alte prestazioni.</p>
-                    <div class="mt-6 flex items-baseline gap-3">
-                        <div class="text-2xl font-extrabold text-anthracite">€ 4,00</div>
-                        <div class="text-xs tracking-[0.22em] uppercase text-gray-500">promo al banco</div>
-                    </div>
-                    <a href="https://wa.me/390119876255?text=Ciao%2C%20vorrei%20prenotare%20la%20promo%20Cod.%20143%20Weber.Plan%20MR81%20(25%20Kg)." target="_blank" rel="noopener" class="mt-8 inline-flex items-center justify-center bg-anthracite text-white px-6 py-3 rounded font-semibold hover:bg-anthracite-light transition-colors w-full">Prenota su WhatsApp</a>
-                </div>
-
-                <div class="relative bg-white/80 backdrop-blur-md border border-white/30 rounded-2xl shadow-sm p-8 overflow-hidden">
-                    <span class="absolute top-6 right-6 bg-construction-red text-white text-xs font-extrabold tracking-[0.25em] px-3 py-1 rounded-full">PROMO</span>
-                    <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Ferramenta</div>
-                    <div class="mt-4 text-2xl font-extrabold tracking-tight text-anthracite">Trapano avvitatore 18V</div>
-                    <p class="mt-4 text-gray-600 leading-relaxed font-light">Disponibilità e configurazione accessori al banco. Ideale per lavori rapidi in cantiere e in casa.</p>
-                    <div class="mt-6 flex items-baseline gap-3">
-                        <div class="text-lg font-extrabold text-anthracite">Prezzo promo</div>
-                        <div class="text-xs tracking-[0.22em] uppercase text-gray-500">su richiesta</div>
-                    </div>
-                    <a href="https://wa.me/390119876255?text=Ciao%2C%20vorrei%20informazioni%20sul%20trapano%20avvitatore%2018V%20in%20promo." target="_blank" rel="noopener" class="mt-8 inline-flex items-center justify-center bg-construction-red text-white px-6 py-3 rounded font-semibold hover:bg-construction-red-light transition-colors w-full">WhatsApp</a>
-                </div>
-
-                <div class="relative bg-white/80 backdrop-blur-md border border-white/30 rounded-2xl shadow-sm p-8 overflow-hidden">
-                    <span class="absolute top-6 right-6 bg-construction-red text-white text-xs font-extrabold tracking-[0.25em] px-3 py-1 rounded-full">PROMO</span>
-                    <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Stagionale</div>
-                    <div class="mt-4 text-2xl font-extrabold tracking-tight text-anthracite">Accendifuoco ecologico</div>
-                    <p class="mt-4 text-gray-600 leading-relaxed font-light">Per stufe e caminetti. Soluzione rapida e pulita per l’accensione.</p>
-                    <div class="mt-6 flex items-baseline gap-3">
-                        <div class="text-2xl font-extrabold text-anthracite">€ 1,65</div>
-                        <div class="text-xs tracking-[0.22em] uppercase text-gray-500">disponibile</div>
-                    </div>
-                    <a href="https://wa.me/390119876255?text=Ciao%2C%20vorrei%20prenotare%20l%E2%80%99accendifuoco%20ecologico%20(in%20promo)." target="_blank" rel="noopener" class="mt-8 inline-flex items-center justify-center bg-anthracite text-white px-6 py-3 rounded font-semibold hover:bg-anthracite-light transition-colors w-full">Prenota su WhatsApp</a>
+            <div class="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" id="promos-grid">
+                <div id="promosMessage" class="md:col-span-2 lg:col-span-4 border border-gray-200 rounded-2xl p-8 bg-white text-gray-600 font-light">
+                    Caricamento promozioni...
                 </div>
             </div>
         </div>
@@ -313,7 +269,10 @@
             </div>
 
             <div class="mt-14">
-                <script defer async src="https://cdn.trustindex.io/loader.js?267e8d97206b170faa669013299"></script>
+                <div data-cookie-placeholder class="border border-gray-200 rounded-2xl p-8 bg-zinc-50 text-gray-600 font-light text-center">
+                    Per visualizzare le recensioni, accetta i cookie per i contenuti esterni.
+                </div>
+                <div id="trustindex-widget" data-cookie-script-src="https://cdn.trustindex.io/loader.js?267e8d97206b170faa669013299"></div>
             </div>
         </div>
     </section>
@@ -325,10 +284,19 @@
                     <div class="text-sm tracking-[0.22em] uppercase text-gray-500">Dove siamo</div>
                     <h2 class="mt-3 text-3xl md:text-4xl font-extrabold tracking-tight text-anthracite">Mappa Google</h2>
                 </div>
-                <div class="mt-10 w-full h-[460px] rounded-2xl overflow-hidden shadow-sm border border-gray-200">
+                <div class="mt-10 w-full h-[460px] rounded-2xl overflow-hidden shadow-sm border border-gray-200 relative">
+                    <div data-cookie-placeholder class="absolute inset-0 bg-white flex items-center justify-center p-8 text-center">
+                        <div class="max-w-md">
+                            <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Google Maps</div>
+                            <div class="mt-3 text-2xl font-extrabold tracking-tight text-anthracite">Mappa disattivata</div>
+                            <div class="mt-4 text-gray-600 leading-relaxed font-light">Per caricare la mappa interattiva, accetta i cookie per i contenuti esterni.</div>
+                            <button type="button" onclick="window.mussoCookie && window.mussoCookie.accept && window.mussoCookie.accept()" class="mt-6 inline-flex items-center justify-center bg-construction-red text-white px-6 py-3 rounded font-semibold hover:bg-construction-red-light transition-colors">Accetta e carica</button>
+                        </div>
+                    </div>
                     <iframe
                         title="MUSSO EDILIZIA S.N.C. - Castelnuovo Don Bosco"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2815.117180470295!2d7.9621376!3d45.1147986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47887372da061ef3%3A0x6b7720cf1f57997a!2sVia%20Chivasso%2C%2011%2C%2014022%20Castelnuovo%20Don%20Bosco%20AT!5e0!3m2!1sit!2sit!4v1715939200000!5m2!1sit!2sit"
+                        data-cookie-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2815.117180470295!2d7.9621376!3d45.1147986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47887372da061ef3%3A0x6b7720cf1f57997a!2sVia%20Chivasso%2C%2011%2C%2014022%20Castelnuovo%20Don%20Bosco%20AT!5e0!3m2!1sit!2sit!4v1715939200000!5m2!1sit!2sit"
+                        src=""
                         class="w-full h-full border-0"
                         allowfullscreen=""
                         loading="lazy"
@@ -395,7 +363,7 @@
                 <div class="text-center text-gray-500 text-xs space-y-2">
                     <p>&copy; 2026 MUSSO EDILIZIA S.N.C. di Musso Bruno e Musso Elena - Via Chivasso 11, 14022 Castelnuovo Don Bosco (AT)</p>
                     <p>P.IVA e C.F.: 01435840051 | REA: AT-115281 | VAT: IT01435840051 | PEC: mussoedilizia@pec.it</p>
-                    <p class="pt-2"><a href="#" class="hover:underline text-gray-400">Privacy Policy</a> &bull; <a href="#" class="hover:underline text-gray-400">Cookie Policy</a></p>
+                    <p class="pt-2"><a href="privacy.html" class="hover:underline text-gray-400">Privacy Policy</a> &bull; <a href="cookie.html" class="hover:underline text-gray-400">Cookie Policy</a></p>
                 </div>
             </div>
         </div>
@@ -427,6 +395,87 @@
         setHeaderState();
         window.addEventListener('scroll', setHeaderState, { passive: true });
         window.addEventListener('resize', setHeaderState);
+
+        const WHATSAPP_NUMBER = '390119876255';
+        const promosGrid = document.getElementById('promos-grid');
+        const promosMessage = document.getElementById('promosMessage');
+
+        const escapeHtml = (value) => {
+            return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        };
+
+        const toMoney = (value) => {
+            if (value == null || value === '') return '';
+            const n = Number(value);
+            if (!Number.isFinite(n)) return '';
+            return new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(n);
+        };
+
+        const buildWhatsAppLink = (item) => {
+            const code = item.code ? `Cod. ${item.code}` : 'Richiesta promo';
+            const label = item.publicName || item.name || '';
+            const text = `Ciao, vorrei prenotare/informazioni sulla promo: ${code} ${label}.`;
+            return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+        };
+
+        const renderPromos = (items) => {
+            promosGrid.innerHTML = '';
+
+            if (!items.length) {
+                const msg = document.createElement('div');
+                msg.id = 'promosMessage';
+                msg.className = 'md:col-span-2 lg:col-span-4 border border-gray-200 rounded-2xl p-8 bg-white text-gray-600 font-light';
+                msg.textContent = 'Nessuna promo disponibile. Genera promos-data.json da admin-local.html e ricarica la pagina.';
+                promosGrid.appendChild(msg);
+                return;
+            }
+
+            items.slice(0, 4).forEach(item => {
+                const price = toMoney(item.price);
+                const name = item.publicName || item.name || '';
+
+                const card = document.createElement('div');
+                card.className = 'relative bg-white/80 backdrop-blur-md border border-white/30 rounded-2xl shadow-sm p-8 overflow-hidden flex flex-col';
+                card.innerHTML = `
+                    <span class="absolute top-6 right-6 bg-construction-red text-white text-xs font-extrabold tracking-[0.25em] px-3 py-1 rounded-full">PROMO</span>
+                    <div class="text-xs tracking-[0.25em] uppercase text-gray-500">${escapeHtml(item.category || 'Promo')}</div>
+                    <div class="mt-4 text-2xl font-extrabold tracking-tight text-anthracite">${escapeHtml(name)}</div>
+                    ${item.brand ? `<div class="mt-3 text-sm font-semibold text-gray-500">${escapeHtml(item.brand)}</div>` : ''}
+                    <div class="mt-6 flex items-baseline gap-3">
+                        ${price ? `<div class="text-2xl font-extrabold text-anthracite">${escapeHtml(price)}</div>` : `<div class="text-lg font-extrabold text-anthracite">Prezzo al banco</div>`}
+                        <div class="text-xs tracking-[0.22em] uppercase text-gray-500">${price ? 'promo' : 'su richiesta'}</div>
+                    </div>
+                    <a href="${buildWhatsAppLink(item)}" target="_blank" rel="noopener" class="mt-8 inline-flex items-center justify-center bg-anthracite text-white px-6 py-3 rounded font-semibold hover:bg-anthracite-light transition-colors w-full">Prenota su WhatsApp</a>
+                `;
+                promosGrid.appendChild(card);
+            });
+        };
+
+        const loadPromos = async () => {
+            if (promosMessage) promosMessage.textContent = 'Caricamento promozioni...';
+            try {
+                const res = await fetch('promos-data.json', { cache: 'no-store' });
+                if (!res.ok) throw new Error('Fetch failed');
+                const data = await res.json();
+                const items = Array.isArray(data.items) ? data.items : [];
+                renderPromos(items);
+            } catch (err) {
+                promosGrid.innerHTML = '';
+                const msg = document.createElement('div');
+                msg.id = 'promosMessage';
+                msg.className = 'md:col-span-2 lg:col-span-4 border border-gray-200 rounded-2xl p-8 bg-white text-gray-600 font-light';
+                msg.innerHTML = 'Impossibile caricare <span class="font-semibold text-anthracite">promos-data.json</span>. Genera il file da <span class="font-semibold text-anthracite">admin-local.html</span>, copialo nella root del sito e ricarica la pagina.';
+                promosGrid.appendChild(msg);
+            }
+        };
+
+        if (promosGrid) loadPromos();
     </script>
+    <script src="cookie-consent.js"></script>
 </body>
 </html>

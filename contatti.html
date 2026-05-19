@@ -234,9 +234,18 @@
                 <section class="mt-12 w-full overflow-hidden border border-white/10 bg-anthracite">
                     <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-10">
                         <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-white">Mappa</h2>
-                        <div class="w-full h-96 rounded-xl overflow-hidden shadow-md border border-gray-200 mt-6">
+                        <div class="w-full h-96 rounded-xl overflow-hidden shadow-md border border-gray-200 mt-6 relative bg-white">
+                            <div data-cookie-placeholder class="absolute inset-0 bg-white flex items-center justify-center p-8 text-center">
+                                <div class="max-w-md">
+                                    <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Google Maps</div>
+                                    <div class="mt-3 text-2xl font-extrabold tracking-tight text-anthracite">Mappa disattivata</div>
+                                    <div class="mt-4 text-gray-600 leading-relaxed font-light">Per caricare la mappa interattiva, accetta i cookie per i contenuti esterni.</div>
+                                    <button type="button" onclick="window.mussoCookie && window.mussoCookie.accept && window.mussoCookie.accept()" class="mt-6 inline-flex items-center justify-center bg-construction-red text-white px-6 py-3 rounded font-semibold hover:bg-construction-red-light transition-colors">Accetta e carica</button>
+                                </div>
+                            </div>
                             <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2815.117180470295!2d7.9621376!3d45.1147986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47887372da061ef3%3A0x6b7720cf1f57997a!2sVia%20Chivasso%2C%2011%2C%2014022%20Castelnuovo%20Don%20Bosco%20AT!5e0!3m2!1sit!2sit!4v1715939200000!5m2!1sit!2sit"
+                                data-cookie-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2815.117180470295!2d7.9621376!3d45.1147986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47887372da061ef3%3A0x6b7720cf1f57997a!2sVia%20Chivasso%2C%2011%2C%2014022%20Castelnuovo%20Don%20Bosco%20AT!5e0!3m2!1sit!2sit!4v1715939200000!5m2!1sit!2sit"
+                                src=""
                                 class="w-full h-full border-0"
                                 allowfullscreen=""
                                 loading="lazy"
@@ -300,7 +309,7 @@
                 <div class="text-center text-gray-500 text-xs space-y-2">
                     <p>&copy; 2026 MUSSO EDILIZIA S.N.C. di Musso Bruno e Musso Elena - Via Chivasso 11, 14022 Castelnuovo Don Bosco (AT)</p>
                     <p>P.IVA e C.F.: 01435840051 | REA: AT-115281 | VAT: IT01435840051 | PEC: mussoedilizia@pec.it</p>
-                    <p class="pt-2"><a href="#" class="hover:underline text-gray-400">Privacy Policy</a> &bull; <a href="#" class="hover:underline text-gray-400">Cookie Policy</a></p>
+                    <p class="pt-2"><a href="privacy.html" class="hover:underline text-gray-400">Privacy Policy</a> &bull; <a href="cookie.html" class="hover:underline text-gray-400">Cookie Policy</a></p>
                 </div>
             </div>
         </div>
@@ -333,5 +342,6 @@
         window.addEventListener('scroll', setHeaderState, { passive: true });
         window.addEventListener('resize', setHeaderState);
     </script>
+    <script src="cookie-consent.js"></script>
 </body>
 </html>

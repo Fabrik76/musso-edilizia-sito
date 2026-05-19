@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pannello Admin (Locale) - MUSSO EDILIZIA S.N.C.</title>
+    <meta name="robots" content="noindex,nofollow">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Archivo', sans-serif; }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'anthracite': '#1a1a1a',
+                        'anthracite-light': '#2d2d2d',
+                        'construction-red': '#c8102e',
+                        'construction-red-light': '#e03a4f'
+                    }
+                }
+            }
+        }
+    </script>
+    <script defer src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+</head>
+<body class="bg-zinc-50 text-anthracite min-h-screen">
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-zinc-200">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-4 flex items-center justify-between gap-6">
+            <div class="flex items-center gap-4">
+                <img src="logo-simbolo.png" alt="Marchio Musso Edilizia" class="h-11 w-auto object-contain">
+                <div class="leading-tight">
+                    <div class="text-lg sm:text-xl font-extrabold tracking-wide uppercase">Pannello Admin (Locale)</div>
+                    <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Import Excel → Esporta JSON</div>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <button id="exportBtn" class="inline-flex items-center justify-center bg-construction-red text-white px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-construction-red-light transition-colors">Scarica catalogo-data.json</button>
+                <button id="resetBtn" class="hidden sm:inline-flex items-center justify-center border border-zinc-200 bg-white px-4 py-2.5 rounded-xl font-semibold text-sm hover:bg-zinc-50 transition-colors">Reset</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-10">
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+            <div class="lg:col-span-4">
+                <div class="bg-white border border-zinc-200 rounded-2xl shadow-sm p-7">
+                    <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Step 1</div>
+                    <h2 class="mt-3 text-2xl font-extrabold tracking-tight text-anthracite">Importa Magazzino.xlsx</h2>
+                    <p class="mt-4 text-gray-600 leading-relaxed font-light">Scegli il file Excel dal tuo computer. Nessun Drive, nessuna password: lavora tutto nel browser.</p>
+
+                    <div class="mt-6 space-y-4">
+                        <div>
+                            <label class="block text-xs tracking-[0.25em] uppercase text-gray-500">File Excel</label>
+                            <input id="fileInput" type="file" accept=".xlsx,.xls" class="mt-2 w-full border border-zinc-200 rounded-xl px-4 py-3 bg-white focus:outline-none focus:border-construction-red transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-xs tracking-[0.25em] uppercase text-gray-500">Scheda</label>
+                            <select id="sheetSelect" class="mt-2 w-full border border-zinc-200 rounded-xl px-4 py-3 bg-white focus:outline-none focus:border-construction-red transition-colors">
+                                <option value="">—</option>
+                            </select>
+                            <div class="mt-2 text-xs text-gray-500">Se non sai quale scegliere, prova la prima.</div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 border-t border-zinc-200 pt-5 space-y-2 text-sm text-gray-600">
+                        <div class="flex items-center justify-between">
+                            <span>Prodotti trovati</span>
+                            <span id="countLabel" class="font-semibold text-anthracite">—</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Ultimo export</span>
+                            <span id="exportLabel" class="font-semibold text-anthracite">—</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Stato</span>
+                            <span id="statusLabel" class="font-semibold text-gray-500">In attesa del file</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 border-t border-zinc-200 pt-5 space-y-3">
+                        <button id="exportPromosBtn" class="inline-flex items-center justify-center bg-anthracite text-white px-5 py-3 rounded-xl font-semibold hover:bg-anthracite-light transition-colors w-full">Scarica promos-data.json</button>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <button id="downloadConfigBtn" class="inline-flex items-center justify-center border border-zinc-200 bg-white px-5 py-3 rounded-xl font-semibold hover:bg-zinc-50 transition-colors w-full">Scarica config.json</button>
+                            <input id="uploadConfigInput" type="file" accept=".json,application/json" class="hidden">
+                            <button id="uploadConfigBtn" class="inline-flex items-center justify-center border border-zinc-200 bg-white px-5 py-3 rounded-xl font-semibold hover:bg-zinc-50 transition-colors w-full">Carica config.json</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8">
+                <div class="bg-white border border-zinc-200 rounded-2xl shadow-sm p-7">
+                    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
+                        <div class="max-w-2xl">
+                            <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Step 2</div>
+                            <h2 class="mt-3 text-2xl sm:text-3xl font-extrabold tracking-tight text-anthracite">Gestione visibilità e promozioni</h2>
+                            <p class="mt-4 text-gray-600 leading-relaxed font-light">Attiva la visibilità, marca i prodotti in PROMO e imposta il nome pubblico. Poi scarica il JSON.</p>
+                        </div>
+                        <div class="flex gap-3 w-full sm:w-auto">
+                            <input id="searchInput" type="search" class="w-full sm:w-72 border border-zinc-200 rounded-xl px-4 py-3 bg-white focus:outline-none focus:border-construction-red transition-colors" placeholder="Cerca per codice o nome...">
+                        </div>
+                    </div>
+
+                    <div class="mt-7 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="border border-zinc-200 rounded-xl px-4 py-3">
+                            <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Filtro</div>
+                            <select id="categorySelect" class="mt-2 w-full bg-white focus:outline-none text-anthracite">
+                                <option value="all">Tutte le categorie</option>
+                            </select>
+                        </div>
+                        <div class="border border-zinc-200 rounded-xl px-4 py-3">
+                            <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Mostra</div>
+                            <select id="visibilitySelect" class="mt-2 w-full bg-white focus:outline-none text-anthracite">
+                                <option value="all">Tutti</option>
+                                <option value="visible">Solo visibili</option>
+                                <option value="hidden">Solo nascosti</option>
+                            </select>
+                        </div>
+                        <div class="border border-zinc-200 rounded-xl px-4 py-3">
+                            <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Promozioni</div>
+                            <select id="promoSelect" class="mt-2 w-full bg-white focus:outline-none text-anthracite">
+                                <option value="all">Tutti</option>
+                                <option value="promo">Solo promo</option>
+                                <option value="no-promo">No promo</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mt-8">
+                        <div id="infoBox" class="border border-zinc-200 rounded-2xl p-6 text-gray-600 bg-zinc-50">Importa un Excel per iniziare.</div>
+                        <div id="errorBox" class="hidden border border-red-200 rounded-2xl p-6 text-red-700 bg-red-50"></div>
+                        <div id="listBox" class="mt-6 grid grid-cols-1 gap-5"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <template id="rowTemplate">
+        <div class="border border-zinc-200 rounded-2xl p-6 bg-white shadow-sm">
+            <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-5">
+                <div class="min-w-0">
+                    <div class="flex items-center gap-3 flex-wrap">
+                        <span data-role="code" class="inline-flex items-center text-xs tracking-[0.25em] uppercase text-gray-500 bg-zinc-50 border border-zinc-200 px-3 py-1 rounded-full"></span>
+                        <span data-role="brand" class="text-xs tracking-[0.25em] uppercase text-gray-500"></span>
+                        <span data-role="promoBadge" class="hidden inline-flex items-center bg-construction-red text-white text-xs font-extrabold tracking-[0.25em] px-3 py-1 rounded-full">PROMO</span>
+                    </div>
+                    <div class="mt-4 text-xl font-extrabold tracking-tight text-anthracite" data-role="name"></div>
+                    <div class="mt-2 text-sm text-gray-500 font-light" data-role="category"></div>
+                </div>
+
+                <div class="flex items-center gap-3 sm:justify-end">
+                    <div class="text-right">
+                        <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Prezzo</div>
+                        <div class="mt-1 text-lg font-extrabold text-anthracite" data-role="price"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
+                <div class="lg:col-span-6">
+                    <label class="block text-xs tracking-[0.25em] uppercase text-gray-500">Nome pubblico</label>
+                    <input data-role="publicName" type="text" class="mt-2 w-full border border-zinc-200 rounded-xl px-4 py-3 bg-white focus:outline-none focus:border-construction-red transition-colors" placeholder="Nome visibile sul sito">
+                </div>
+                <div class="lg:col-span-6 flex flex-col sm:flex-row gap-4">
+                    <div class="flex-1 border border-zinc-200 rounded-xl px-4 py-3">
+                        <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Visibilità</div>
+                        <div class="mt-2 flex items-center justify-between gap-3">
+                            <span class="text-sm text-gray-600">Mostra sul sito</span>
+                            <button data-role="visibleToggle" type="button" class="relative inline-flex h-7 w-12 items-center rounded-full bg-zinc-200 transition-colors">
+                                <span class="inline-block h-5 w-5 transform rounded-full bg-white transition-transform translate-x-1"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex-1 border border-zinc-200 rounded-xl px-4 py-3">
+                        <div class="text-xs tracking-[0.25em] uppercase text-gray-500">Promozione</div>
+                        <div class="mt-2 flex items-center justify-between gap-3">
+                            <span class="text-sm text-gray-600">In promo</span>
+                            <button data-role="promoToggle" type="button" class="relative inline-flex h-7 w-12 items-center rounded-full bg-zinc-200 transition-colors">
+                                <span class="inline-block h-5 w-5 transform rounded-full bg-white transition-transform translate-x-1"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        const state = {
+            wb: null,
+            sheetName: '',
+            items: [],
+            config: {},
+            lastExport: null,
+            dirty: false
+        };
+
+        const storageKeys = {
+            config: 'musso_catalogo_config_v1',
+            exportedAt: 'musso_catalogo_exported_at_v1'
+        };
+
+        const els = {
+            fileInput: document.getElementById('fileInput'),
+            sheetSelect: document.getElementById('sheetSelect'),
+            searchInput: document.getElementById('searchInput'),
+            categorySelect: document.getElementById('categorySelect'),
+            visibilitySelect: document.getElementById('visibilitySelect'),
+            promoSelect: document.getElementById('promoSelect'),
+            exportBtn: document.getElementById('exportBtn'),
+            exportPromosBtn: document.getElementById('exportPromosBtn'),
+            downloadConfigBtn: document.getElementById('downloadConfigBtn'),
+            uploadConfigInput: document.getElementById('uploadConfigInput'),
+            uploadConfigBtn: document.getElementById('uploadConfigBtn'),
+            resetBtn: document.getElementById('resetBtn'),
+            countLabel: document.getElementById('countLabel'),
+            exportLabel: document.getElementById('exportLabel'),
+            statusLabel: document.getElementById('statusLabel'),
+            infoBox: document.getElementById('infoBox'),
+            errorBox: document.getElementById('errorBox'),
+            listBox: document.getElementById('listBox'),
+            rowTemplate: document.getElementById('rowTemplate')
+        };
+
+        const safeText = (v) => (v == null ? '' : String(v));
+
+        const normalizeHeader = (v) => safeText(v)
+            .trim()
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[^a-z0-9]+/g, '');
+
+        const parsePrice = (v) => {
+            if (v == null || v === '') return '';
+            if (typeof v === 'number') return v;
+            const s = safeText(v).trim().replace('€', '').replace(/\s+/g, '');
+            const normalized = s.replace(/\./g, '').replace(',', '.');
+            const n = Number(normalized);
+            return Number.isFinite(n) ? n : '';
+        };
+
+        const toMoney = (v) => {
+            if (v == null || v === '') return '—';
+            const n = Number(v);
+            if (Number.isFinite(n)) return new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(n);
+            return safeText(v);
+        };
+
+        const itemKey = (item) => safeText(item.code || item.id || item.name);
+
+        const getConfigFor = (key) => {
+            const existing = state.config[key];
+            if (existing) return existing;
+            state.config[key] = { visible: false, promo: false, publicName: '' };
+            return state.config[key];
+        };
+
+        const toggleButtonState = (btn, isOn) => {
+            btn.classList.toggle('bg-zinc-200', !isOn);
+            btn.classList.toggle('bg-construction-red', isOn);
+            const knob = btn.querySelector('span');
+            knob.classList.toggle('translate-x-1', !isOn);
+            knob.classList.toggle('translate-x-6', isOn);
+        };
+
+        const clearError = () => {
+            els.errorBox.textContent = '';
+            els.errorBox.classList.add('hidden');
+        };
+
+        const showError = (msg) => {
+            els.errorBox.textContent = msg;
+            els.errorBox.classList.remove('hidden');
+        };
+
+        const setStatus = (msg) => {
+            els.statusLabel.textContent = msg;
+        };
+
+        const loadConfigFromStorage = () => {
+            try {
+                const raw = localStorage.getItem(storageKeys.config);
+                if (raw) {
+                    const obj = JSON.parse(raw);
+                    if (obj && typeof obj === 'object') state.config = obj;
+                }
+            } catch {}
+            const exported = localStorage.getItem(storageKeys.exportedAt);
+            if (exported) {
+                state.lastExport = exported;
+                els.exportLabel.textContent = new Date(exported).toLocaleString('it-IT');
+            }
+        };
+
+        const saveConfigToStorage = () => {
+            localStorage.setItem(storageKeys.config, JSON.stringify(state.config));
+        };
+
+        const buildColumnIndex = (headers) => {
+            const findIdx = (candidates) => {
+                for (let i = 0; i < headers.length; i++) {
+                    if (candidates.includes(headers[i])) return i;
+                }
+                return -1;
+            };
+
+            return {
+                code: findIdx(['codice', 'cod', 'codarticolo', 'articolo', 'id']),
+                name: findIdx(['descrizione', 'nome', 'prodotto', 'articolo']),
+                brand: findIdx(['marchio', 'marca', 'brand']),
+                category: findIdx(['categoria', 'reparto', 'famiglia', 'gruppo']),
+                price: findIdx(['prezzo', 'prezzovendita', 'prezzodivendita', 'prezzounitario', 'prezzolistino'])
+            };
+        };
+
+        const readSheetToItems = () => {
+            if (!state.wb || !state.sheetName) return [];
+            const ws = state.wb.Sheets[state.sheetName];
+            if (!ws) return [];
+
+            const rows = XLSX.utils.sheet_to_json(ws, { header: 1, raw: true, defval: '' });
+            if (!rows || rows.length < 2) return [];
+
+            const headers = rows[0].map(normalizeHeader);
+            const idx = buildColumnIndex(headers);
+
+            const out = [];
+            for (let r = 1; r < rows.length; r++) {
+                const row = rows[r];
+                const code = idx.code >= 0 ? row[idx.code] : '';
+                const name = idx.name >= 0 ? row[idx.name] : '';
+                const brand = idx.brand >= 0 ? row[idx.brand] : '';
+                const category = idx.category >= 0 ? row[idx.category] : '';
+                const price = idx.price >= 0 ? parsePrice(row[idx.price]) : '';
+
+                if (!code && !name) continue;
+                out.push({
+                    id: String(r),
+                    code: code ? String(code) : '',
+                    name: name ? String(name) : '',
+                    brand: brand ? String(brand) : '',
+                    category: category ? String(category) : '',
+                    price
+                });
+            }
+
+            return out;
+        };
+
+        const buildCategoryOptions = () => {
+            const existing = new Set(['all']);
+            state.items.forEach(it => {
+                const cat = safeText(it.category).trim();
+                if (cat) existing.add(cat);
+            });
+            const current = els.categorySelect.value || 'all';
+            els.categorySelect.innerHTML = '';
+            Array.from(existing).sort((a, b) => a.localeCompare(b, 'it')).forEach(cat => {
+                const opt = document.createElement('option');
+                opt.value = cat === 'all' ? 'all' : cat;
+                opt.textContent = cat === 'all' ? 'Tutte le categorie' : cat;
+                els.categorySelect.appendChild(opt);
+            });
+            els.categorySelect.value = existing.has(current) ? current : 'all';
+        };
+
+        const passesFilters = (item) => {
+            const q = safeText(els.searchInput.value).trim().toLowerCase();
+            const cat = els.categorySelect.value;
+            const vis = els.visibilitySelect.value;
+            const promo = els.promoSelect.value;
+
+            const key = itemKey(item);
+            const cfg = getConfigFor(key);
+
+            if (q) {
+                const hay = (safeText(item.code) + ' ' + safeText(item.name) + ' ' + safeText(cfg.publicName)).toLowerCase();
+                if (!hay.includes(q)) return false;
+            }
+            if (cat && cat !== 'all' && safeText(item.category) !== cat) return false;
+            if (vis === 'visible' && !cfg.visible) return false;
+            if (vis === 'hidden' && cfg.visible) return false;
+            if (promo === 'promo' && !cfg.promo) return false;
+            if (promo === 'no-promo' && cfg.promo) return false;
+            return true;
+        };
+
+        const render = () => {
+            clearError();
+            buildCategoryOptions();
+            els.listBox.innerHTML = '';
+
+            const filtered = state.items.filter(passesFilters);
+            filtered.forEach(item => {
+                const key = itemKey(item);
+                const cfg = getConfigFor(key);
+
+                const node = els.rowTemplate.content.firstElementChild.cloneNode(true);
+                node.querySelector('[data-role="code"]').textContent = safeText(item.code || '—');
+                node.querySelector('[data-role="brand"]').textContent = safeText(item.brand || '');
+                node.querySelector('[data-role="name"]').textContent = safeText(item.name || '');
+                node.querySelector('[data-role="category"]').textContent = safeText(item.category || '');
+                node.querySelector('[data-role="price"]').textContent = toMoney(item.price);
+
+                const promoBadge = node.querySelector('[data-role="promoBadge"]');
+                promoBadge.classList.toggle('hidden', !cfg.promo);
+
+                const publicNameInput = node.querySelector('[data-role="publicName"]');
+                publicNameInput.value = safeText(cfg.publicName || '');
+                publicNameInput.addEventListener('input', () => {
+                    cfg.publicName = publicNameInput.value;
+                    state.dirty = true;
+                    saveConfigToStorage();
+                });
+
+                const visibleBtn = node.querySelector('[data-role="visibleToggle"]');
+                toggleButtonState(visibleBtn, !!cfg.visible);
+                visibleBtn.addEventListener('click', () => {
+                    cfg.visible = !cfg.visible;
+                    toggleButtonState(visibleBtn, cfg.visible);
+                    state.dirty = true;
+                    saveConfigToStorage();
+                    render();
+                });
+
+                const promoBtn = node.querySelector('[data-role="promoToggle"]');
+                toggleButtonState(promoBtn, !!cfg.promo);
+                promoBtn.addEventListener('click', () => {
+                    cfg.promo = !cfg.promo;
+                    toggleButtonState(promoBtn, cfg.promo);
+                    state.dirty = true;
+                    saveConfigToStorage();
+                    render();
+                });
+
+                els.listBox.appendChild(node);
+            });
+
+            els.countLabel.textContent = String(state.items.length);
+            els.infoBox.classList.toggle('hidden', state.items.length > 0);
+        };
+
+        const downloadJson = (filename, obj) => {
+            const blob = new Blob([JSON.stringify(obj, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            URL.revokeObjectURL(url);
+        };
+
+        const exportCatalog = (onlyPromos) => {
+            const merged = state.items.map(item => {
+                const key = itemKey(item);
+                const cfg = getConfigFor(key);
+                return {
+                    code: safeText(item.code),
+                    name: safeText(item.name),
+                    publicName: safeText(cfg.publicName || ''),
+                    brand: safeText(item.brand),
+                    category: safeText(item.category),
+                    price: item.price,
+                    visible: !!cfg.visible,
+                    promo: !!cfg.promo
+                };
+            });
+
+            const filtered = onlyPromos ? merged.filter(i => i.visible && i.promo) : merged.filter(i => i.visible);
+            const payload = {
+                generatedAt: new Date().toISOString(),
+                items: filtered
+            };
+
+            const filename = onlyPromos ? 'promos-data.json' : 'catalogo-data.json';
+            downloadJson(filename, payload);
+
+            state.lastExport = payload.generatedAt;
+            localStorage.setItem(storageKeys.exportedAt, state.lastExport);
+            els.exportLabel.textContent = new Date(state.lastExport).toLocaleString('it-IT');
+            setStatus('Export completato');
+        };
+
+        const loadWorkbookFromFile = async (file) => {
+            if (!file) return;
+            clearError();
+            setStatus('Caricamento file...');
+
+            const buf = await file.arrayBuffer();
+            state.wb = XLSX.read(buf, { type: 'array' });
+            const names = state.wb.SheetNames || [];
+            els.sheetSelect.innerHTML = '';
+
+            if (names.length === 0) {
+                showError('Nessun foglio trovato nel file.');
+                setStatus('Errore');
+                return;
+            }
+
+            names.forEach((name) => {
+                const opt = document.createElement('option');
+                opt.value = name;
+                opt.textContent = name;
+                els.sheetSelect.appendChild(opt);
+            });
+
+            state.sheetName = names[0];
+            els.sheetSelect.value = state.sheetName;
+            state.items = readSheetToItems();
+
+            setStatus('File caricato');
+            render();
+        };
+
+        els.fileInput.addEventListener('change', async () => {
+            const f = els.fileInput.files && els.fileInput.files[0];
+            try {
+                await loadWorkbookFromFile(f);
+            } catch (err) {
+                showError('Errore lettura Excel. Verifica che il file sia .xlsx e riprova.');
+                setStatus('Errore');
+            }
+        });
+
+        els.sheetSelect.addEventListener('change', () => {
+            state.sheetName = els.sheetSelect.value;
+            state.items = readSheetToItems();
+            render();
+        });
+
+        [els.searchInput, els.categorySelect, els.visibilitySelect, els.promoSelect].forEach(el => {
+            el.addEventListener('input', render);
+            el.addEventListener('change', render);
+        });
+
+        els.exportBtn.addEventListener('click', () => exportCatalog(false));
+        els.exportPromosBtn.addEventListener('click', () => exportCatalog(true));
+        els.downloadConfigBtn.addEventListener('click', () => downloadJson('config.json', state.config));
+        els.uploadConfigBtn.addEventListener('click', () => { els.uploadConfigInput.click(); });
+        els.uploadConfigInput.addEventListener('change', async () => {
+            const f = els.uploadConfigInput.files && els.uploadConfigInput.files[0];
+            if (!f) return;
+            clearError();
+            try {
+                const raw = await f.text();
+                const obj = JSON.parse(raw);
+                if (!obj || typeof obj !== 'object') throw new Error('Formato non valido');
+                state.config = obj;
+                state.dirty = true;
+                saveConfigToStorage();
+                render();
+                setStatus('Config caricata');
+            } catch (err) {
+                showError('Impossibile caricare config.json. Verifica il file e riprova.');
+                setStatus('Errore');
+            } finally {
+                els.uploadConfigInput.value = '';
+            }
+        });
+        els.resetBtn.addEventListener('click', () => {
+            localStorage.removeItem(storageKeys.config);
+            localStorage.removeItem(storageKeys.exportedAt);
+            state.config = {};
+            state.lastExport = null;
+            els.exportLabel.textContent = '—';
+            render();
+            setStatus('Reset completato');
+        });
+
+        window.addEventListener('beforeunload', (e) => {
+            if (!state.dirty) return;
+            e.preventDefault();
+            e.returnValue = '';
+        });
+
+        loadConfigFromStorage();
+        render();
+    </script>
+</body>
+</html>
